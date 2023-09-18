@@ -1,7 +1,6 @@
 {
   "name": "prisma-study",
   "version": "1.0.0",
-  "description": "",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -20,5 +19,6 @@
   "dependencies": {
     "@prisma/client": "^5.3.0",
     "dotenv": "^16.3.1"
-  }
+  },
+  "description": ""
 }
