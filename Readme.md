@@ -21,3 +21,5 @@
  - Plasmic
 - Rich Text Editor
 - NextJS - Mdx
+- cassandra
+- rabbitmq
