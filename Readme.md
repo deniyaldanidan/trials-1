@@ -18,8 +18,6 @@
 - Redis
     - KV
 - Supabase
- - Plasmic
+- Plasmic
 - Rich Text Editor
 - NextJS - Mdx
-- cassandra
-- rabbitmq
