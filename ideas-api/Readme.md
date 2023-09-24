@@ -6,7 +6,7 @@
 - GET /auth/logout
 - GET /auth/refresh
 
-# Unprotected Endpoints
+## Unprotected Endpoints
 - GET /
 - GET   /ideas
 
