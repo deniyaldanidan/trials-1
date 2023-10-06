@@ -1,0 +1,73 @@
+@use '../libs/vars.module' as *;
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: inherit;
+    height: fit-content;
+    width: 100%;
+    max-width: 500px;
+    row-gap: 40px;
+    margin: 0 auto;
+
+    &.medium {
+        max-width: 850px;
+    }
+
+    &.full {
+        max-width: 95%;
+    }
+
+    h1 {
+        @include pageHead;
+    }
+
+    .errmsg {
+        font-size: 1rem;
+        font-weight: $font-medium;
+        color: $danger-red;
+        text-transform: uppercase;
+        margin-top: -20px;
+        text-align: center;
+        height: 1.4em;
+    }
+
+    .btngrps {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        column-gap: 45px;
+        margin-top: 30px;
+        width: 100%;
+
+        input[type="submit"],
+        button {
+            @include mybtn;
+        }
+    }
+
+    &.formLight {
+        h1 {
+            @include pageHead(light);
+        }
+
+        .btngrps {
+
+            input[type="submit"],
+            button {
+                background-color: getColor(light, "primary");
+                color: getColor(light, "text");
+
+                &:last-child {
+                    background-color: getColor(light, "secondary");
+                }
+
+                &:hover {
+                    background-color: getColor(light, "accent");
+                }
+            }
+        }
+    }
+}

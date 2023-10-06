@@ -8,7 +8,7 @@ export default async function (req: Request, res: Response, next: NextFunction) 
         const tokenInp = myValidators.isValidJWT.safeParse(req.cookies?.refresh);
         if (tokenInp.success) {
             const refToken = tokenInp.data;
-            const existingUser = await db.user.findUnique({ where: { refresh: refToken } });
+            const existingUser = await db.user.findFirst({ where: { refresh: refToken } });
             if (existingUser) {
                 await db.user.update({ where: { username: existingUser.username }, data: { refresh: "" } });
             }

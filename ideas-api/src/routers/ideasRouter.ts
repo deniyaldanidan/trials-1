@@ -17,6 +17,7 @@ ideasRouter.route("/")
 ideasRouter.post("/like", verifyAccess, likeIdea);
 
 ideasRouter.route("/:id")
+    // .get(getOneIdea)
     .delete(verifyAccess, deleteIdea);
 
 

@@ -1,0 +1,73 @@
+@use '../libs/vars.module' as *;
+
+.homePage {
+    max-width: 750px;
+    margin: 0 auto;
+
+    .pageHead {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        justify-content: center;
+        row-gap: 10px;
+
+        span {
+            @include pageHead;
+        }
+
+        button {
+            line-height: 1.4em;
+            font-size: 1.125rem;
+            text-decoration: underline;
+            color: getColor(dark, "text");
+            text-transform: capitalize;
+            font-family: $poppins;
+            cursor: pointer;
+            transition: 50ms ease-in-out;
+
+            &:hover {
+                color: getColor(dark, "accent");
+            }
+        }
+    }
+
+    .ideasList {
+        border: solid 1.5px rgba(getColor(dark, "text"), 0.4);
+        border-radius: 10px;
+        overflow: hidden;
+
+        &>* {
+            padding: 15px;
+            border-bottom: solid 1.5px rgba(getColor(dark, "text"), 0.4);
+
+            &:last-child {
+                border: none;
+            }
+        }
+    }
+
+    &.homePageLight {
+        .pageHead {
+            span {
+                @include pageHead(light)
+            }
+
+            button {
+                color: getColor(light, "text");
+            }
+        }
+
+        .ideasList {
+            border: solid 1.5px rgba(getColor(light, "text"), 0.6);
+
+            &>* {
+                border-bottom: solid 1.5px rgba(getColor(light, "text"), 0.6);
+
+                &:last-child {
+                    border: none;
+                }
+            }
+        }
+    }
+}

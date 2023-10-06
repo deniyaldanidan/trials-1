@@ -1,0 +1,92 @@
+@use '../libs/vars.module' as *;
+
+.idea {
+    background-color: rgba(getColor(dark, "text"), 0.04);
+
+    .header {
+        display: flex;
+        align-items: center;
+        column-gap: 15px;
+        margin-bottom: 20px;
+
+        .avatar_author {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .name,
+        .username {
+            font-size: 1.05rem;
+            font-weight: 500;
+        }
+
+        .name {
+            text-transform: capitalize;
+        }
+
+        .username {
+            transition: 150ms ease-in-out;
+
+            &:hover {
+                cursor: pointer;
+                color: getColor(dark, "accent");
+            }
+        }
+
+        .date {
+            display: flex;
+            align-items: center;
+            font-size: 1rem;
+            column-gap: 4px;
+            color: rgba(getColor(dark, "text"), 0.7);
+        }
+    }
+
+    .content {
+        font-size: 1.1rem;
+        padding: 0 20px 25px;
+    }
+
+    .footer {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        column-gap: 25px;
+        margin-top: 20px;
+
+        .icon_secs {
+            display: flex;
+            align-items: center;
+            column-gap: 10px;
+            font-size: 1.1rem;
+
+            svg {
+                display: flex;
+            }
+
+            &.btn {
+                cursor: pointer;
+
+                &:hover {
+                    color: getColor(dark, "accent");
+                }
+            }
+        }
+
+        .icon_btn {
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+    }
+
+    &.ideaLight {
+        background-color: rgba(getColor(light, "text"), 0.075);
+
+        .header>.date {
+            color: rgba(getColor(light, "text"), 0.85);
+        }
+    }
+}

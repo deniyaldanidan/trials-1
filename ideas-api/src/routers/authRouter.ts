@@ -9,7 +9,7 @@ const authRouter = Router();
 authRouter
     .post("/register", registerHandler)
     .post("/login", loginHandler)
-    .get("/refresh", refreshHandler)
-    .get("/logout", logoutHandler);
+    .post("/logout", logoutHandler)
+    .get("/refresh", refreshHandler);
 
 export default authRouter;

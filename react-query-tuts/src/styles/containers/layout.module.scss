@@ -1,0 +1,79 @@
+@use '../libs/vars.module' as *;
+
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    text-decoration: none;
+    font-size: inherit;
+    color: inherit;
+    font-family: $poppins;
+    background: none;
+}
+
+.app {
+    display: block;
+    max-width: 100vw;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-color: getColor(dark, "background");
+    color: getColor(dark, "text");
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: rgba(getColor(dark, "text"), 0.04);
+        padding: 15px $gap;
+
+        .logo {
+            text-transform: uppercase;
+            letter-spacing: 1.1px;
+            font-size: 1.55rem;
+            font-weight: $font-semibold;
+            font-family: $playfair;
+        }
+
+        .menus {
+            display: flex;
+            align-items: center;
+            column-gap: $gap;
+
+            .menu {
+                font-size: 1.15rem;
+                font-weight: $font-medium;
+                cursor: pointer;
+
+                &.active_menu {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    main {
+        display: block;
+        padding: $gap $gap 60px;
+        min-height: 82.5vh;
+    }
+
+    footer {
+        background-color: rgba(getColor(dark, "text"), 0.04);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 15px $gap;
+        font-size: 1rem;
+    }
+
+    &.appLight {
+        color: getColor(light, "text");
+        background-color: getColor(light, "background");
+
+        header,
+        footer {
+            background-color: rgba(getColor(light, "text"), 0.1);
+        }
+    }
+}

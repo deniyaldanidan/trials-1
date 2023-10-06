@@ -1,0 +1,12 @@
+@use '../libs/vars.module' as *;
+
+
+.themeTogg {
+    font-size: 1.2rem;
+    display: flex;
+    cursor: pointer;
+
+    &.light {
+        color: getColor(light, "text");
+    }
+}

@@ -12,7 +12,7 @@ model User {
   username  String        @unique
   email     String        @unique
   password  String
-  refresh   String?       @unique
+  refresh   String        @default("")
   createdAt DateTime      @default(now())
   profile   Profile?
   ideas     Idea[]        @relation("author")

@@ -1,0 +1,46 @@
+@use '../libs/vars.module' as *;
+
+.inpgrp {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+    width: 100%;
+
+    label {
+        font-size: 1.15rem;
+        font-weight: $font-medium;
+        width: fit-content;
+    }
+
+    input {
+        width: 100%;
+        min-width: 22ch;
+        padding: 10px 7.5px;
+        border-radius: 5px;
+        font-size: 1.1rem;
+        background-color: rgba(getColor(dark, "text"), 0.125);
+        transition: 150ms ease-in-out;
+
+        &:focus {
+            background-color: rgba(getColor(dark, "text"), 0.25);
+        }
+
+        &::placeholder {
+            color: rgba(getColor(dark, "text"), 0.75);
+        }
+    }
+
+    &.inpgrp-light {
+        input {
+            background-color: rgba(getColor(light, "text"), 0.125);
+
+            &::placeholder {
+                color: rgba(getColor(light, "text"), 0.6);
+            }
+
+            &:focus {
+                background-color: rgba(getColor(light, "text"), 0.2);
+            }
+        }
+    }
+}

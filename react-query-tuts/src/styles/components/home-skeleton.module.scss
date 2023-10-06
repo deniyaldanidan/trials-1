@@ -1,0 +1,59 @@
+@use '../libs/vars.module' as *;
+
+@keyframes animatebox {
+    0% {
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.3;
+    }
+}
+
+.homeSkeleton {
+    max-width: 750px;
+    margin: 0 auto;
+
+    .skeletonpghd {
+        @include pageHead;
+        margin-bottom: 20px;
+        margin-top: calc(20px + 1rem);
+    }
+
+    .skeletonideas {
+        border: solid 1.5px rgba(getColor(dark, "text"), 0.4);
+        border-radius: 10px;
+        overflow: hidden;
+
+        &>* {
+            height: 250px;
+            width: 100%;
+            border-bottom: solid 1.5px rgba(getColor(dark, "text"), 0.4);
+            background-color: rgba(getColor(dark, "text"), 0.04);
+            animation: animatebox 1.5s ease-in-out infinite both;
+
+            &:last-child {
+                border: none;
+            }
+        }
+    }
+
+    &.lightHSKLTN {
+        .skeletonpghd {
+            @include pageHead(light)
+        }
+
+        .skeletonideas {
+            border-color: rgba(getColor(light, "text"), 0.4);
+
+            &>* {
+                border-color: rgba(getColor(light, "text"), 0.4);
+                background-color: rgba(getColor(light, "text"), 0.075);
+            }
+        }
+    }
+}
