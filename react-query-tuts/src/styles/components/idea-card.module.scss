@@ -43,6 +43,25 @@
             column-gap: 4px;
             color: rgba(getColor(dark, "text"), 0.7);
         }
+
+        .author_btns {
+            display: flex;
+            align-items: center;
+            column-gap: 20px;
+
+            svg {
+                display: flex;
+            }
+
+            &>* {
+                font-size: 1.1rem;
+                cursor: pointer;
+
+                &:hover {
+                    color: getColor(dark, "accent");
+                }
+            }
+        }
     }
 
     .content {
@@ -87,6 +106,11 @@
 
         .header>.date {
             color: rgba(getColor(light, "text"), 0.85);
+        }
+
+        .header>.username:hover,
+        .author_btns>*:hover {
+            color: getColor(light, "primary");
         }
     }
 }

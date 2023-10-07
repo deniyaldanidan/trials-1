@@ -7,8 +7,9 @@ type props = {
     type: HTMLInputTypeAttribute,
     placeholder: string,
     value: string,
-    onChange: React.ChangeEventHandler<HTMLInputElement>,
-    label: string
+    onChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>,
+    label: string,
+    textarea?: true
 }
 
 /**
@@ -21,7 +22,13 @@ export default function InpGrp(props: props) {
     return (
         <div className={clsx("inpgrp", theme === "light" && "inpgrp-light")}>
             <label htmlFor={props.id}>{props.label}</label>
-            <input type={props.type} id={props.id} placeholder={props.placeholder} value={props.value} onChange={props.onChange} />
+            {
+                props.textarea ? (
+                    <textarea id={props.id} placeholder={props.placeholder} value={props.value} onChange={props.onChange} />
+                ) : (
+                    <input type={props.type} id={props.id} placeholder={props.placeholder} value={props.value} onChange={props.onChange} />
+                )
+            }
         </div>
     );
 }

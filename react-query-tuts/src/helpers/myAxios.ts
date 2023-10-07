@@ -1,7 +1,10 @@
 import axios from "axios";
+import useAuthState from "../context/AuthContext";
+
+const baseURL = "http://localhost:8123";
 
 const myAxios = axios.create({
-    baseURL: "http://localhost:8123",
+    baseURL,
     withCredentials: true
 })
 
@@ -19,4 +22,20 @@ export const fetchIdeasClient = async () => {
     } catch (error) {
         throw new Error("Query failed");
     }
+}
+
+export function useAuthAxios() {
+    const { myaccessToken } = useAuthState();
+
+    if (myaccessToken !== null) {
+        return axios.create({
+            baseURL,
+            withCredentials: true,
+            headers: {
+                Authorization: `Bearer ${myaccessToken}`
+            }
+        })
+    }
+
+    return myAxios;
 }

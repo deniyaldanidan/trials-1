@@ -5,8 +5,9 @@ import useLogout from '../hooks/useLogout';
 import useAuthState from '../context/AuthContext';
 import useDarkLightTheme from '../context/DarkLightContext';
 import DarkLightToggler from '../components/DarkLightToggler';
+import url from '../helpers/urldata';
 
-const menuClasses = (isActive: boolean, isDark?: boolean) => {
+const menuClasses = (isActive: boolean) => {
     return clsx(styles.menu, isActive && styles.active_menu)
 }
 
@@ -26,17 +27,18 @@ export default function Layout() {
                     {
                         status === "auth" ? (
                             <>
+                                <NavLink to={url.createIdea.value} className={({ isActive }) => menuClasses(isActive)}>{url.createIdea.label}</NavLink>
                                 <div className={styles.menu}>{userInfo?.name}</div>
                                 <div className={styles.menu} onClick={() => logout()}>logout</div>
                             </>
                         ) : (
                             <>
-                                <NavLink to="/login"
+                                <NavLink to={url.login.value}
                                     className={({ isActive }) => menuClasses(isActive)}
-                                >Login</NavLink>
-                                <NavLink to="/register"
+                                >{url.login.label}</NavLink>
+                                <NavLink to={url.register.value}
                                     className={({ isActive }) => menuClasses(isActive)}
-                                >Register</NavLink>
+                                >{url.register.label}</NavLink>
                             </>
                         )}
                     <DarkLightToggler />

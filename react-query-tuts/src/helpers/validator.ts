@@ -26,6 +26,12 @@ const validUUID = spaceFilteredString.uuid();
 
 const validComment = spaceFilteredString.min(1).max(450);
 
+const isValidUserInfo = z.object({
+    username: spaceFilteredString,
+    name: spaceFilteredString,
+    userId: validUUID
+})
+
 const myValidators = {
     spaceFilteredString,
     username,
@@ -37,7 +43,8 @@ const myValidators = {
     validIntId,
     convertableValidIntId,
     validUUID,
-    validComment
+    validComment,
+    isValidUserInfo
 }
 
 export default myValidators;

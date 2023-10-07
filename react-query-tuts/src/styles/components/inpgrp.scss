@@ -12,7 +12,8 @@
         width: fit-content;
     }
 
-    input {
+    input,
+    textarea {
         width: 100%;
         min-width: 22ch;
         padding: 10px 7.5px;
@@ -30,16 +31,29 @@
         }
     }
 
+    textarea {
+        height: 320px;
+        resize: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
     &.inpgrp-light {
-        input {
-            background-color: rgba(getColor(light, "text"), 0.125);
+
+        input,
+        textarea {
+            background-color: rgba(getColor(light, "text"), 0.05);
+            border: rgba(getColor(light, "text"), 0.3) solid 1.5px;
 
             &::placeholder {
                 color: rgba(getColor(light, "text"), 0.6);
             }
 
             &:focus {
-                background-color: rgba(getColor(light, "text"), 0.2);
+                background-color: rgba(getColor(light, "text"), 0.075);
+                border: rgba(getColor(light, "text"), 0.5) solid 1.5px;
             }
         }
     }

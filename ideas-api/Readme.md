@@ -3,12 +3,12 @@
 ## Authentication Endpoints
 - POST /auth/login
 - POST /auth/register
-- GET /auth/logout
+- POST /auth/logout
 - GET /auth/refresh
 
 ## Unprotected Endpoints
 - GET /
-- GET   /ideas
+- GET /ideas
 
 
 ## Protected Endpoints

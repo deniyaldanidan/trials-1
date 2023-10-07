@@ -4,14 +4,16 @@ import { refreshClient } from '../helpers/myAxios';
 import myValidators from '../helpers/validator';
 import jwtdecode from 'jwt-decode';
 
-const AuthContext = createContext<{ authState: authObject, setAuth: voidFN<string>, resetAuth: emptyVoidFN }>({
+const AuthContext = createContext<{ authState: authObject, setAuth: voidFN<string>, resetAuth: emptyVoidFN, myaccessToken: string | null }>({
     authState: { status: "loading" },
     setAuth: () => { },
-    resetAuth: () => { }
+    resetAuth: () => { },
+    myaccessToken: null
 });
 
 export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     const [authState, setAuthState] = useState<authObject>({ status: "loading" });
+    const [myaccessToken, setMyAccessToken] = useState<string | null>(null);
 
     const { isLoading, isSuccess, isError, data } = useQuery({
         queryKey: ["accesstoken"],
@@ -41,11 +43,12 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     function setAuth(data: string) {
         try {
             const accToken = myValidators.isValidJWT.parse(data);
-            const userInfo = jwtdecode<userInfo>(accToken);
-            return setAuthState({
+            const userInfo = myValidators.isValidUserInfo.parse(jwtdecode(accToken));
+            setAuthState({
                 status: "auth",
                 userInfo
-            })
+            });
+            setMyAccessToken(accToken);
         } catch (error) {
             return setAuthState({
                 status: "unauth"
@@ -58,7 +61,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     }
 
 
-    return <AuthContext.Provider value={{ authState, setAuth, resetAuth }} >
+    return <AuthContext.Provider value={{ authState, setAuth, resetAuth, myaccessToken }} >
         {children}
     </AuthContext.Provider>
 }

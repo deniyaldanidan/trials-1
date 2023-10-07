@@ -1,11 +1,16 @@
 import { avatarGen, getFullName, readableDate } from "../helpers";
 import { FaPlus, FaPen, FaComments, FaThumbsUp, FaThumbsDown, FaShare } from 'react-icons/fa';
+import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import styles from '../styles/components/idea-card.module.scss';
 import { Link } from "react-router-dom";
 import clsx from "clsx";
 import useDarkLightTheme from "../context/DarkLightContext";
+import useAuthState from "../context/AuthContext";
+import url from "../helpers/urldata";
 
 export default function IdeaCard({ idea }: { idea: Idea1 }) {
+
+    const { authState } = useAuthState();
 
     const nlikes: number = idea.likes.filter(like => like.value === "like").length;
     const ndislikes: number = idea.likes.filter(like => like.value === "Dislike").length;
@@ -25,6 +30,14 @@ export default function IdeaCard({ idea }: { idea: Idea1 }) {
                     <FaPen />
                     {readableDate(idea.updatedAt)}
                 </time>
+                {
+                    authState.status === "auth" && authState.userInfo.username === idea.Author.username ? (
+                        <div className={styles.author_btns}>
+                            <Link to={url.updateIdea.value} state={{ id: idea.id, content: idea.content }}><AiFillEdit /></Link>
+                            <AiFillDelete />
+                        </div>
+                    ) : ""
+                }
             </div>
             <div className={styles.content}>
                 {idea.content}
