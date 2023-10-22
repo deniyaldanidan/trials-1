@@ -26,6 +26,9 @@ export default async function (req: Request, res: Response, next: NextFunction) 
                         }
                     }
                 }
+            },
+            orderBy: {
+                updatedAt: "desc"
             }
         });
         return res.json(ideas);

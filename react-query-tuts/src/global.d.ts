@@ -1,5 +1,7 @@
+type likeVal = "Like" | "Dislike";
+
 type Idea1 = {
-    id: string,
+    id: number,
     content: string,
     createdAt: string,
     updatedAt: string,
@@ -14,7 +16,7 @@ type Idea1 = {
         comments: number
     },
     likes: {
-        value: "like" | "Dislike",
+        value: likeVal,
         likedBy: {
             username: string
         }

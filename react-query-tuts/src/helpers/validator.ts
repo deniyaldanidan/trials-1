@@ -30,7 +30,9 @@ const isValidUserInfo = z.object({
     username: spaceFilteredString,
     name: spaceFilteredString,
     userId: validUUID
-})
+});
+
+const unEmptyString = spaceFilteredString.min(1);
 
 const myValidators = {
     spaceFilteredString,
@@ -44,7 +46,8 @@ const myValidators = {
     convertableValidIntId,
     validUUID,
     validComment,
-    isValidUserInfo
+    isValidUserInfo,
+    unEmptyString
 }
 
 export default myValidators;

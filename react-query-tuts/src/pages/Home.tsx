@@ -13,8 +13,7 @@ export default function Home() {
         queryKey: ["ideas"],
         queryFn: fetchIdeasClient,
         refetchOnWindowFocus: false,
-        refetchOnMount: false,
-        refetchInterval: 60 * 1000
+        refetchOnMount: true
     })
 
     if (isLoading || isRefetching) {

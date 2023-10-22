@@ -7,14 +7,19 @@ import clsx from "clsx";
 import useDarkLightTheme from "../context/DarkLightContext";
 import useAuthState from "../context/AuthContext";
 import url from "../helpers/urldata";
+import { useDeleteIdea } from "../hooks/useDeleteIdea";
+import { useLikeUnlike } from "../hooks/useLikeUnlike";
 
 export default function IdeaCard({ idea }: { idea: Idea1 }) {
 
     const { authState } = useAuthState();
+    const { deleteFN, isDeleting } = useDeleteIdea(idea.id);
 
-    const nlikes: number = idea.likes.filter(like => like.value === "like").length;
+    const nlikes: number = idea.likes.filter(like => like.value === "Like").length;
     const ndislikes: number = idea.likes.filter(like => like.value === "Dislike").length;
     const { theme } = useDarkLightTheme();
+
+    const { mutate: likeFN, isLoading: isLiking } = useLikeUnlike();
 
     return (
         <div className={clsx(styles.idea, theme === "light" && styles.ideaLight)}>
@@ -34,7 +39,7 @@ export default function IdeaCard({ idea }: { idea: Idea1 }) {
                     authState.status === "auth" && authState.userInfo.username === idea.Author.username ? (
                         <div className={styles.author_btns}>
                             <Link to={url.updateIdea.value} state={{ id: idea.id, content: idea.content }}><AiFillEdit /></Link>
-                            <AiFillDelete />
+                            <AiFillDelete onClick={() => !isDeleting && deleteFN()} />
                         </div>
                     ) : ""
                 }
@@ -43,8 +48,18 @@ export default function IdeaCard({ idea }: { idea: Idea1 }) {
                 {idea.content}
             </div>
             <div className={styles.footer}>
-                <div className={clsx(styles.icon_secs)}>{nlikes} <FaThumbsUp /></div>
-                <div className={clsx(styles.icon_secs)}>{ndislikes} <FaThumbsDown /></div>
+                <div
+                    className={clsx(styles.icon_secs, authState.status === "auth" && styles.btn)}
+                    onClick={() => (authState.status === "auth" && !isLiking) && likeFN({ value: "Like", idea_id: idea.id })}
+                >
+                    {nlikes} <FaThumbsUp />
+                </div>
+                <div
+                    className={clsx(styles.icon_secs, authState.status === "auth" && styles.btn)}
+                    onClick={() => (authState.status === "auth" && !isLiking) && likeFN({ value: "Dislike", idea_id: idea.id })}
+                >
+                    {ndislikes} <FaThumbsDown />
+                </div>
                 <div className={styles.icon_secs}>{idea._count.comments} <FaComments /></div>
                 <FaShare className={styles.icon_btn} />
             </div>
