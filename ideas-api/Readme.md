@@ -8,8 +8,8 @@
 
 ## Unprotected Endpoints
 - GET /
-- GET /ideas
-
+- GET /ideas?page=1
+- GET /ideas/:id
 
 ## Protected Endpoints
 - POST /ideas

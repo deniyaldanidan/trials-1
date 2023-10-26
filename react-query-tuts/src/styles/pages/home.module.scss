@@ -17,18 +17,7 @@
         }
 
         button {
-            line-height: 1.4em;
-            font-size: 1.125rem;
-            text-decoration: underline;
-            color: getColor(dark, "text");
-            text-transform: capitalize;
-            font-family: $poppins;
-            cursor: pointer;
-            transition: 50ms ease-in-out;
-
-            &:hover {
-                color: getColor(dark, "accent");
-            }
+            @include textBTN;
         }
     }
 
@@ -47,6 +36,13 @@
         }
     }
 
+    .loadMoreBTN {
+        @include textBTN;
+        display: block;
+        width: fit-content;
+        margin: 40px auto 10px;
+    }
+
     &.homePageLight {
         .pageHead {
             span {
@@ -54,7 +50,7 @@
             }
 
             button {
-                color: getColor(light, "text");
+                @include textBTN(light)
             }
         }
 
@@ -68,6 +64,10 @@
                     border: none;
                 }
             }
+        }
+
+        .loadMoreBTN {
+            @include textBTN(light)
         }
     }
 }

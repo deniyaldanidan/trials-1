@@ -1,7 +1,8 @@
 @use '../libs/vars.module' as *;
 
 .idea {
-    background-color: rgba(getColor(dark, "text"), 0.04);
+    background-color: getColor(dark, "secBG");
+    display: block;
 
     .header {
         display: flex;
@@ -66,8 +67,15 @@
 
     .content {
         font-size: 1.1rem;
-        padding: 0 20px 25px;
+        padding: 0 15px 25px;
         white-space: pre-line;
+    }
+
+    .viewBTN {
+        display: block;
+        text-align: right;
+        text-decoration: underline;
+        padding-right: 50px;
     }
 
     .footer {
@@ -103,7 +111,7 @@
     }
 
     &.ideaLight {
-        background-color: rgba(getColor(light, "text"), 0.075);
+        background-color: getColor(light, "secBG");
 
         .header>.date {
             color: rgba(getColor(light, "text"), 0.85);

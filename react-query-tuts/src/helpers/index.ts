@@ -23,3 +23,10 @@ export class CustValidationErr extends Error {
         this.message = message
     }
 }
+
+export class CUST404 extends Error {
+    constructor(message: string) {
+        super(message);
+        this.message = message;
+    }
+}

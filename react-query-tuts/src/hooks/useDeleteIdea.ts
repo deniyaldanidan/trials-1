@@ -1,19 +1,29 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuthAxios } from "../helpers/myAxios";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import url from "../helpers/urldata";
+import { allIdeasQKEY, oneIdeaQKEY } from "../helpers/query-keys";
 
 
-export function useDeleteIdea(id: number) {
+export function useDeleteIdea() {
     const myQueryClient = useQueryClient();
     const myAuthAxios = useAuthAxios();
+    const navigate = useNavigate()
 
-    const { mutate, isLoading } = useMutation({
-        mutationFn: async () => {
+    const { mutate, isPending, isSuccess } = useMutation({
+        mutationFn: async (id: number) => {
             return await myAuthAxios.delete(`/ideas/${id}`)
         },
-        onSuccess: () => {
-            myQueryClient.invalidateQueries({ queryKey: ["ideas"], refetchType: "all" })
+        onSuccess: (_, id) => {
+            myQueryClient.invalidateQueries({ queryKey: allIdeasQKEY, refetchType: "all" });
+            myQueryClient.removeQueries({ queryKey: oneIdeaQKEY(id), exact: true })
         }
-    })
+    });
 
-    return { isDeleting: isLoading, deleteFN: mutate }
+    useEffect(() => {
+        isSuccess && navigate(url.home.value)
+    }, [isSuccess, navigate]);
+
+    return { isDeleting: isPending, deleteFN: mutate }
 }

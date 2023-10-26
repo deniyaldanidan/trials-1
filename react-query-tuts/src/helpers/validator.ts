@@ -17,7 +17,7 @@ const isValidJWT = spaceFilteredString.refine(val => validator.isJWT(val));
 
 const id_err_msg = "Invalid id";
 const validIntId = z.number({ errorMap: () => ({ message: id_err_msg }) }).int().positive().gte(1).finite();
-const convertableValidIntId = z.string().transform((id, ctx) => {
+const convertableValidIntId = z.string().transform((id) => {
     const parsedId = parseInt(id);
     return parsedId;
 }).pipe(validIntId);

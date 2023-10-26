@@ -17,6 +17,10 @@ const url = {
     },
     updateIdea: {
         value: "/update-idea"
+    },
+    viewIdea: {
+        value: "/view-idea/:id",
+        urlFN: (id: number) => `/view-idea/${id}`
     }
 } as const;
 

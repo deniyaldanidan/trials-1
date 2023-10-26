@@ -17,14 +17,24 @@ type Idea1 = {
     },
     likes: {
         value: likeVal,
-        likedBy: {
+        likedby: {
             username: string
         }
     }[]
 }
 
 type Idea2 = Omit<Idea1, "_count"> & {
-
+    comments: {
+        id: number,
+        value: string,
+        commentby: {
+            username: string,
+            profile: {
+                firstname: string,
+                lastname: string
+            }
+        }
+    }[]
 }
 
 type authStatus = "unauth" | "auth";

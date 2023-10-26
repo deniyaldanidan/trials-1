@@ -20,10 +20,11 @@ export default function UpdateIdea() {
     const myQueryClient = useQueryClient();
     const mutationFn = useCreateOrUpdateIdea("update");
 
-    const { mutateAsync, isLoading, isSuccess } = useMutation({
+    const { mutateAsync, isPending, isSuccess } = useMutation({
         mutationFn,
-        onSuccess: () => {
+        onSuccess: (_, { id }) => {
             myQueryClient.invalidateQueries({ queryKey: ['ideas'], refetchType: "all" });
+            myQueryClient.invalidateQueries({ queryKey: ["idea", { id }], refetchType: "all" });
         }
     });
 
@@ -31,12 +32,10 @@ export default function UpdateIdea() {
         if (!validState.safeParse(myState).success) {
             navigate(url.home.value);
             console.error("Invalid data");
-        } /*else {
-            console.info("state is valid", myState);
-        } */
+        }
     }, [myState, navigate]);
 
     return (
-        <AddUpdateIdea operation="update" mutateFN={mutateAsync} isLoading={isLoading} isSuccess={isSuccess} prevData={myState} />
+        <AddUpdateIdea operation="update" mutateFN={mutateAsync} isLoading={isPending} isSuccess={isSuccess} prevData={myState} />
     )
 }

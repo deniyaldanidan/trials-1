@@ -3,11 +3,13 @@ $danger-red: #f32103;
 $themes: (
     light: (text: #0e0801,
         background: #fffcfa,
+        secBG: #efecea,
         primary: #5aabf6,
         secondary: #cacbfc,
         accent: #0cedea),
     dark: (text: #fef8f1,
         background: #050200,
+        secBG: #0e0a03,
         primary: #0959a5,
         secondary: #122f60,
         accent: #12f3ef)
@@ -85,4 +87,33 @@ $gap: 30px;
     justify-content: space-between;
     align-items: center;
     column-gap: 50px;
+}
+
+@mixin textBTN ($theme: dark) {
+    line-height: 1.4em;
+    font-size: 1.125rem;
+    text-decoration: underline;
+
+    @if ($theme ==dark) {
+        color: getColor(dark, "text");
+    }
+
+    @else {
+        color: getColor(light, "text");
+    }
+
+    text-transform: capitalize;
+    font-family: $poppins;
+    cursor: pointer;
+    transition: 50ms ease-in-out;
+
+    &:hover {
+        @if ($theme ==dark) {
+            color: getColor(dark, "accent");
+        }
+
+        @else {
+            color: getColor(light, "accent");
+        }
+    }
 }

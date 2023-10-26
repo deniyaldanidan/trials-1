@@ -14,6 +14,7 @@ import { AuthContextProvider } from './context/AuthContext';
 import { DarkLightThemeProvider } from './context/DarkLightContext';
 import CreateIdea from './pages/CreateIdea';
 import UpdateIdea from './pages/UpdateIdea';
+import ViewIdea from './pages/ViewIdea';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -40,6 +41,7 @@ root.render(
                 <Route element={<Protected role='auth' />}>
                   <Route path={url.createIdea.value} element={<CreateIdea />} />
                   <Route path={url.updateIdea.value} element={<UpdateIdea />} />
+                  <Route path={url.viewIdea.value} element={<ViewIdea />} />
                 </Route>
 
                 {/* Below is a 404 Catcher */}

@@ -3,6 +3,7 @@ import { createContext, ReactNode, useContext, useState, useEffect } from 'react
 import { refreshClient } from '../helpers/myAxios';
 import myValidators from '../helpers/validator';
 import jwtdecode from 'jwt-decode';
+import { accTokQKEY } from '../helpers/query-keys';
 
 const AuthContext = createContext<{ authState: authObject, setAuth: voidFN<string>, resetAuth: emptyVoidFN, myaccessToken: string | null }>({
     authState: { status: "loading" },
@@ -16,13 +17,12 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     const [myaccessToken, setMyAccessToken] = useState<string | null>(null);
 
     const { isLoading, isSuccess, isError, data } = useQuery({
-        queryKey: ["accesstoken"],
+        queryKey: accTokQKEY,
         queryFn: refreshClient,
         retry: 0,
         refetchInterval: 4 * 60 * 60 * 1000,
         refetchOnWindowFocus: false,
-        refetchIntervalInBackground: false,
-        keepPreviousData: false
+        refetchIntervalInBackground: false
     });
 
     useEffect(() => {

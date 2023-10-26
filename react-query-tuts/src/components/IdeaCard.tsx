@@ -1,25 +1,38 @@
 import { avatarGen, getFullName, readableDate } from "../helpers";
 import { FaPlus, FaPen, FaComments, FaThumbsUp, FaThumbsDown, FaShare } from 'react-icons/fa';
-import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import styles from '../styles/components/idea-card.module.scss';
 import { Link } from "react-router-dom";
 import clsx from "clsx";
 import useDarkLightTheme from "../context/DarkLightContext";
-import useAuthState from "../context/AuthContext";
 import url from "../helpers/urldata";
-import { useDeleteIdea } from "../hooks/useDeleteIdea";
-import { useLikeUnlike } from "../hooks/useLikeUnlike";
+import React from 'react';
+import { UseMutateFunction } from "@tanstack/react-query";
+import { AxiosResponse } from "axios";
 
-export default function IdeaCard({ idea }: { idea: Idea1 }) {
 
-    const { authState } = useAuthState();
-    const { deleteFN, isDeleting } = useDeleteIdea(idea.id);
+type props = {
+    idea: Idea1,
+    viewPage?: undefined,
+    likeFunc?: undefined,
+    isLiking?: undefined,
+    authBTNS?: undefined
+} | {
+    idea: Idea1,
+    viewPage: true,
+    likeFunc: UseMutateFunction<AxiosResponse, unknown, {
+        value: likeVal;
+        idea_id: number;
+    }>,
+    isLiking: boolean,
+    authBTNS: (className: string) => React.ReactNode
+}
+
+export default function IdeaCard({ idea, viewPage, authBTNS, likeFunc, isLiking }: props) {
+
+    const { theme } = useDarkLightTheme();
 
     const nlikes: number = idea.likes.filter(like => like.value === "Like").length;
     const ndislikes: number = idea.likes.filter(like => like.value === "Dislike").length;
-    const { theme } = useDarkLightTheme();
-
-    const { mutate: likeFN, isLoading: isLiking } = useLikeUnlike();
 
     return (
         <div className={clsx(styles.idea, theme === "light" && styles.ideaLight)}>
@@ -36,27 +49,26 @@ export default function IdeaCard({ idea }: { idea: Idea1 }) {
                     {readableDate(idea.updatedAt)}
                 </time>
                 {
-                    authState.status === "auth" && authState.userInfo.username === idea.Author.username ? (
-                        <div className={styles.author_btns}>
-                            <Link to={url.updateIdea.value} state={{ id: idea.id, content: idea.content }}><AiFillEdit /></Link>
-                            <AiFillDelete onClick={() => !isDeleting && deleteFN()} />
-                        </div>
-                    ) : ""
+                    viewPage ? authBTNS(styles.author_btns) : ""
                 }
             </div>
             <div className={styles.content}>
                 {idea.content}
             </div>
+            {
+                !viewPage ?
+                    <Link to={url.viewIdea.urlFN(idea.id)} className={styles.viewBTN}>View {">"}</Link> : ""
+            }
             <div className={styles.footer}>
                 <div
-                    className={clsx(styles.icon_secs, authState.status === "auth" && styles.btn)}
-                    onClick={() => (authState.status === "auth" && !isLiking) && likeFN({ value: "Like", idea_id: idea.id })}
+                    className={clsx(styles.icon_secs, viewPage && styles.btn)}
+                    onClick={() => (viewPage && !isLiking) && likeFunc({ value: "Like", idea_id: idea.id })}
                 >
                     {nlikes} <FaThumbsUp />
                 </div>
                 <div
-                    className={clsx(styles.icon_secs, authState.status === "auth" && styles.btn)}
-                    onClick={() => (authState.status === "auth" && !isLiking) && likeFN({ value: "Dislike", idea_id: idea.id })}
+                    className={clsx(styles.icon_secs, viewPage && styles.btn)}
+                    onClick={() => (viewPage && !isLiking) && likeFunc({ value: "Dislike", idea_id: idea.id })}
                 >
                     {ndislikes} <FaThumbsDown />
                 </div>

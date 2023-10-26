@@ -1,0 +1,11 @@
+@use '../libs/vars.module' as *;
+
+.viewPage {
+    background-color: getColor(dark, "secBG");
+    padding: 25px 15px;
+    border-radius: 10px;
+
+    &.viewPageLight {
+        background-color: getColor(light, "secBG");
+    }
+}

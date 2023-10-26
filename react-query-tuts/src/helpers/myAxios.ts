@@ -1,6 +1,6 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import useAuthState from "../context/AuthContext";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { CUST404 } from ".";
 
 const baseURL = "http://localhost:8123";
 
@@ -16,11 +16,23 @@ export const refreshClient = async () => {
     return res.data.accToken;
 }
 
-export const fetchIdeasClient = async () => {
+export const fetchIdeasClient = async ({ pageParam }: { pageParam: number }) => {
     try {
-        const res = await myAxios.get<Idea1[]>("/ideas");
+        const res = await myAxios.get<Idea1[]>(`/ideas?page=${pageParam}`);
         return res.data;
     } catch (error) {
+        throw new Error("Query failed");
+    }
+}
+
+export const fetchOneIdeaClient = async (id: number) => {
+    try {
+        const res = await myAxios.get<Idea2>(`/ideas/${id}`)
+        return res.data;
+    } catch (error) {
+        if (error instanceof AxiosError && error.response?.status === 404) {
+            throw new CUST404("Requested resource not found");
+        }
         throw new Error("Query failed");
     }
 }
