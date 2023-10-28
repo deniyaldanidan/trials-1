@@ -1,11 +1,26 @@
+import MyForm from "./components/MyForm";
+
+import MyDetails from "./components/MyDetails"
+
+// import Paragraph from "./components/Paragraph"
+
+// import Notification from "./components/Notification";
+// import Peoples from "./components/Peoples";
+// import Words from "./components/Words";
+
 
 
 function App() {
 
   return (
-    <p className="text-3xl text-red-500 underline mt-64 mx-auto w-fit">
-      Man, Vite is Fast as F*ck
-    </p>
+    <div className="w-fit mt-[30px] mx-auto" >
+      {/* <Notification /> */}
+      {/* <Peoples /> */}
+      {/* <Words /> */}
+      <MyForm />
+      {/* <Paragraph /> */}
+      <MyDetails question="How's the day?" answer="Today is so good." />
+    </div>
   )
 }
 
