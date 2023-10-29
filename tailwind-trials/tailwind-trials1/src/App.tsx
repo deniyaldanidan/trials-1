@@ -19,7 +19,7 @@ function App() {
       {/* <Words /> */}
       <MyForm />
       {/* <Paragraph /> */}
-      <MyDetails question="How's the day?" answer="Today is so good." />
+      <MyDetails question="How's the day?" answer="Today is so good." className="mt-[30px]" />
     </div>
   )
 }
