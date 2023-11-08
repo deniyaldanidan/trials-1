@@ -7,45 +7,44 @@
 - [x] write basic CRUD graphql endpoints for `Movie` & `Celebrity`.
 - [ ] include an interface for Mutation-Responses
 
-
-> Need to Rethink (populate() and let mongoose handle nested resolver and redesign mongoose schema no movie_id or director_id)
+> Will continue on coming Sunday
 
 ## Schema:
 ``` Ts
 
-interface Celebrity {
-    _id?: String,
-    name: String,
-    movies: String[],
-    bio: String,
-    titles: Array<"ACTOR" | "DIRECTOR">
+interface ICelebrity {
+    _id?: objectIdType,
+    name: string,
+    bio: string,
+    titles: Array<celebTitleEnum>
 }
 
-interface Movie {
-    _id?: String,
-    name: String,
+interface IMovie {
+    _id?: objectIdType,
+    name: string,
     year: number,
-    director: String,
-    genre: String[],
-    actors: String[]
+    plot: string,
+    director: objectIdType,
+    genre: string[],
+    actors: Array<objectIdType>
 }
 
-interface User {
-    _id?: String,
-    username: String,
-    email: String,
-    name: String,
-    role: "admin" | "user",
-    password: String,
-    refresh: String
-}
-
-interface Review {
-    _id?: String,
-    content: String,
+interface IReview {
+    _id?: objectIdType,
+    content: string,
     starRating: Number,
-    movieId: String,
-    userId: String
+    movie: objectIdType,
+    user: objectIdType
+}
+
+interface IUser {
+    _id?: objectIdType,
+    username: string,
+    email: string,
+    name: string,
+    role: userRoleEnum,
+    password: string,
+    refresh: string
 }
 
 ```

@@ -50,10 +50,25 @@ const resolvers: ApolloServerOptionsWithTypeDefs<BaseContext>['resolvers'] = {
             const newMovie = new Movie(args.data);
             await newMovie.save();
             return newMovie;
+        },
+        async updateCelebrity(_, args: { id: string, data: createCelebData }) {
+            const updCeleb = await Celebrity.findOneAndUpdate({ _id: args.id }, args.data, { new: true });
+            return updCeleb;
+        },
+        async updateMovie(_, args: { id: string, data: createMovieData }) {
+            const updMovie = await Movie.findOneAndUpdate({ _id: args.id }, args.data, { new: true });
+            return updMovie;
+        },
+        async deleteCelebrity(_, args: { id: string }) {
+            await Celebrity.deleteOne({ _id: args.id });
+            return args.id;
+        },
+        async deleteMovie(_, args: { id: string }) {
+            await Movie.deleteOne({ _id: args.id });
+            return args.id;
         }
     },
 
-    // ! Write it in such a way if it is already resolved by parent. you don't have to resolve it again (if it has a certain property) else resolve it.
     Movie: {
         async director(parent: IMovie) {
             if (mongoose.isValidObjectId(parent?.director)) {

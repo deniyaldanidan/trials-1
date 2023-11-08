@@ -45,9 +45,29 @@ const gqlSchema = `#graphql
         actors: [ID!]
     }
 
+    input CelebUpdInp{
+        name: String!
+        bio: String
+        title: [AllowedTitles!]
+    }
+
+    input MovieUpdInp{
+        name: String!
+        year: Int
+        director: ID
+        plot: String
+        genre: [String!]
+        actors: [ID!]
+    }
+
     type Mutation{
         addCelebrity(data: CelebInput!): Celebrity
+        updateCelebrity(id: ID!, data: CelebUpdInp!): Celebrity
+        deleteCelebrity(id: ID!): String
+        
         addMovie(data: MovieInput!): Movie
+        updateMovie(id: ID!, data: MovieUpdInp!): Movie
+        deleteMovie(id: ID!): String
     }
 
 `
