@@ -5,6 +5,11 @@ const gqlSchema = `#graphql
         DIRECTOR
     }
 
+    type UserLimited{
+        username: String!
+        name: String!
+    }
+
     type Celebrity{
         _id: ID!
         name: String!
@@ -21,6 +26,15 @@ const gqlSchema = `#graphql
         director: Celebrity
         genre: [String!]!
         actors: [Celebrity!]
+        reviews: [Review!]
+    }
+
+    type Review{
+        _id: ID!
+        content: String!
+        starRating: Float!,
+        movie: Movie!,
+        user: UserLimited!
     }
 
     type Query{
@@ -28,6 +42,8 @@ const gqlSchema = `#graphql
         getMovies: [Movie!]
         getCeleb(id: ID!): Celebrity!
         getMovie(id: ID!): Movie!
+        getReviews: [Review!]
+        getReview(id: ID!): Review!
     }
 
     input CelebInput{
@@ -60,6 +76,17 @@ const gqlSchema = `#graphql
         actors: [ID!]
     }
 
+    input ReviewInput{
+        content: String!
+        starRating: Float!
+        movie: ID!
+    }
+
+    input ReviewUpdate{
+        content: String
+        starRating: Float
+    }
+
     type Mutation{
         addCelebrity(data: CelebInput!): Celebrity
         updateCelebrity(id: ID!, data: CelebUpdInp!): Celebrity
@@ -68,6 +95,10 @@ const gqlSchema = `#graphql
         addMovie(data: MovieInput!): Movie
         updateMovie(id: ID!, data: MovieUpdInp!): Movie
         deleteMovie(id: ID!): String
+
+        addReview(data: ReviewInput!): Review!
+        updateReview(id: ID!, data: ReviewUpdate!): Review!
+        deleteReview(id: ID!): String!
     }
 
 `
