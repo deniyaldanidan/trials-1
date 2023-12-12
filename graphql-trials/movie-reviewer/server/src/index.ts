@@ -42,7 +42,7 @@ const server = new ApolloServer<MyContext>({
 await connect(DB_CONN_STRING)
 await server.start();
 
-app.use(cors());
+app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
 app.use(cookieParser());
 app.use(urlencoded({ extended: true }));
 app.use(json());

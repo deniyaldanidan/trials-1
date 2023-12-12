@@ -64,7 +64,7 @@ const gqlSchema = `#graphql
     input CelebUpdInp{
         name: String!
         bio: String
-        title: [AllowedTitles!]
+        titles: [AllowedTitles!]
     }
 
     input MovieUpdInp{
