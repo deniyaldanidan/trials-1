@@ -1,0 +1,31 @@
+{
+  "name": "web-socket-study-1-server",
+  "version": "1.0.0",
+  "description": "Learning web-socket server study",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --watch ./src ./src/server.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deniyaldanidan/trials-1.git"
+  },
+  "keywords": [
+    "web-sockets"
+  ],
+  "author": "deniyaldanidan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/deniyaldanidan/trials-1/issues"
+  },
+  "homepage": "https://github.com/deniyaldanidan/trials-1#readme",
+  "dependencies": {
+    "@types/node": "^20.10.4",
+    "@types/ws": "^8.5.10",
+    "nodemon": "^3.0.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3",
+    "ws": "^8.15.1"
+  }
+}
