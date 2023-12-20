@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello Chat</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+
+<body>
+    <div class="header">
+        <h1>Hello Chat</h1>
+        <form id="message-box" class="form">
+            <input type="text" placeholder="Type your message here">
+            <button>Send</button>
+        </form>
+    </div>
+    <h1 id="welcome"></h1>
+    <ul id="messages"></ul>
+    <p id="activity"></p>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.min.js"
+        integrity="sha512-Xm9qbB6Pu06k3PUwPj785dyTl6oHxgsv9nHp7ej7nCpAqGZT3OZpsELuCYX05DdonFpTlBpXMOxjavIAIUwr0w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        const messagesContainer = document.getElementById("messages");
+        const msgForm = document.getElementById("message-box");
+        const welcomeEl = document.getElementById("welcome");
+        const activityEl = document.getElementById("activity");
+        const myInpEl = msgForm.getElementsByTagName("input")[0]
+
+        function messageBox(message) {
+            const boxEl = document.createElement("li");
+            boxEl.textContent = message;
+            return boxEl;
+        }
+
+
+        const socket = io("ws://localhost:3200");
+
+        socket.on("connect", () => {
+            console.log("Socket connection is opened", `I'm ${socket.id.substring(0, 5)}`);
+        });
+
+        socket.on("welcome", (data) => {
+            welcomeEl.textContent = data
+        })
+
+        socket.on("message", (data) => {
+            activityEl.textContent = "";
+            messagesContainer.appendChild(messageBox(data));
+        })
+
+        let activityTimer;
+        socket.on("activity", data => {
+            activityEl.textContent = `${data} is typing...`
+            clearTimeout(activityTimer);
+            activityTimer = setTimeout(() => {
+                activityEl.textContent = "";
+            }, 750);
+        })
+
+        msgForm.onsubmit = function (e) {
+            e.preventDefault();
+            const message = myInpEl.value;
+            if (message.length) {
+                socket.emit("message", message);
+                myInpEl.value = "";
+                myInpEl.focus()
+            }
+        }
+
+        myInpEl.onkeypress = function () {
+            socket.emit("activity", socket.id.substring(0, 5))
+        }
+
+    </script>
+</body>
+
+</html>
